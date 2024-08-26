@@ -19,7 +19,7 @@ class ArticleValidationError(Exception):
     def format_errors(self):
         formatted = {}
         for error in self.errors:
-            key = '.'.join(str(x) for x in error['loc'])
-            formatted[key] = error['msg']
+            key = ".".join(str(x) for x in error["loc"])
+            formatted[key] = error["msg"]
 
         return formatted

@@ -2,11 +2,8 @@ from typing import ClassVar, List, Optional
 
 from pydantic import BaseModel, ValidationError
 
-from blog_api.exceptions import (
-    ArticleAlreadyExists,
-    ArticleNotFound,
-    ArticleValidationError
-)
+from blog_api.exceptions import (ArticleAlreadyExists, ArticleNotFound,
+                                 ArticleValidationError)
 
 
 class Article(BaseModel):
@@ -14,21 +11,23 @@ class Article(BaseModel):
     title: str
     content: str
 
-    _articles: ClassVar[List['Article']] = []
+    _articles: ClassVar[List["Article"]] = []
 
     @classmethod
-    def get_articles(cls) -> List['Article']:
+    def get_articles(cls) -> List["Article"]:
         return cls._articles
 
     @classmethod
-    def get_article_by_id(cls, article_id: int) -> Optional['Article']:
+    def get_article_by_id(cls, article_id: int) -> Optional["Article"]:
         try:
-            return next(article for article in cls._articles if article.id == article_id)
+            return next(
+                article for article in cls._articles if article.id == article_id
+            )
         except StopIteration:
             raise ArticleNotFound(article_id)
 
     @classmethod
-    def add_article(cls, article_data: dict) -> 'Article':
+    def add_article(cls, article_data: dict) -> "Article":
         try:
             article = cls(**article_data)
             cls.get_article_by_id(article.id)
