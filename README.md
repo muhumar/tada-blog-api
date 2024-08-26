@@ -9,3 +9,8 @@ This Blog API is a simple FastAPI application that allows users to manage a list
 - **Add New Article**: Add a new article to the list.
 - **Delete Article**: Remove an article based on its ID.
 - **Request Logging**: Custom middleware to log request details including date, time, method, and URL.
+
+## Installation
+- Create and activate Python Environment
+- Run `pip install -e .`
+- Run `blogapi`
