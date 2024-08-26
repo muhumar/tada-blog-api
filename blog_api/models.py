@@ -31,12 +31,12 @@ class Article(BaseModel):
     def add_article(cls, article_data: dict) -> 'Article':
         try:
             article = cls(**article_data)
+            cls.get_article_by_id(article.id)
+            raise ArticleAlreadyExists(article.id)
         except ValidationError as e:
             raise ArticleValidationError(e.errors())
-
-
-        if next((article for article in cls._articles if article.id == article.id), None):
-            raise ArticleAlreadyExists(article.id)
+        except ArticleNotFound:
+            pass
 
         cls._articles.append(article)
         return article
